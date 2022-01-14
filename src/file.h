@@ -3,11 +3,7 @@
 
 #define DIRECTORY_LIST_SIZE 25
 
-
 #include <iostream>
-
-
-
 #include <string>
 
 #include <dirent.h>

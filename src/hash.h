@@ -12,8 +12,10 @@
 using namespace CryptoPP;
 
 #include <algorithm>
+#include <fstream>
 
 std::string generate_md5 (std::string f_name);
 std::string generate_sha1 (std::string f_name);
+unsigned long long generate_f_size (std::string f_name);
 
 #endif

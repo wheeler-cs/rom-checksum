@@ -1,6 +1,5 @@
 GCC=g++
 STD=-std=c++11
-# OPT=-DNDEBUG -g3 -O2 -Wall -Wextraa
 OPT=-D CRYPTOPP_ENABLE_NAMESPACE_WEAK=1
 LIB=-l:libcryptopp.a
 

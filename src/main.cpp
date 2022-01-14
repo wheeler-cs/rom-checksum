@@ -5,8 +5,10 @@
 #include "xml.h"
 
 int main(int argc, char** argv) {
-    bool is_silent = true;
+    bool is_silent = false;
     std::string data_directory = "data", rom_directory = "roms";
+
+    handle_args (argc, argv, &data_directory, &rom_directory, &is_silent);
 
     // XML
     Xml* xml_data = allocate_Xml (DIRECTORY_LIST_SIZE, is_silent);
@@ -25,7 +27,7 @@ int main(int argc, char** argv) {
 
     // Deallocate memory
     deallocate_Xml (xml_data);
-    deallocate_Rom_File (rom_data);
+    //deallocate_Rom_File (rom_data);
 
     // Terminate program
     std::cout << std::endl;

@@ -1,5 +1,8 @@
 #include "rom.h"
 
+
+// Class constructors
+
 Rom_File::Rom_File() {
     name = "";
     
@@ -9,6 +12,8 @@ Rom_File::Rom_File() {
     size = 0;
 }
 
+
+// Accessors
 
 std::string Rom_File::get_name() {
     return name;
@@ -29,6 +34,8 @@ unsigned long long Rom_File::get_size() {
     return size;
 }
 
+
+// Mutators
 
 void Rom_File::set_name (std::string s) {
     name = s;

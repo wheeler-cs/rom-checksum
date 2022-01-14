@@ -9,6 +9,12 @@
 #include "rom.h"
 #include "xml.h"
 
+void handle_args (int argc,
+                  char** argv,
+                  std::string *data_dir,
+                  std::string *rom_dir, 
+                  bool *is_silent);
+
 Xml* allocate_Xml (unsigned int size, bool is_silent);
 void deallocate_Xml (Xml* xml_ptr);
 Rom_File* allocate_Rom_File (unsigned int size, bool is_silent);

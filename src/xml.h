@@ -5,6 +5,7 @@
 #define XML_HEADER "<?xml version=\"1.0\"?>"
 #define XML_HEADER_SIZE 21
 
+#include <algorithm>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -44,6 +45,7 @@ public:
     // Rom searching
     Rom_File* search_rom_md5 (std::string key);
     Rom_File* search_rom_sha1 (std::string key);
+    Rom_File* search_rom_size (unsigned long long key);
 
 private:
     std::string name, description, author, homepage;
@@ -52,10 +54,10 @@ private:
     unsigned int list_size;
 };
 
-std::vector <char> load_file (std::string f_name);
-bool verify_xml (std::vector <char> &xml_data);
-std::string find_in_xml_header (std::string keyword, std::vector <char> &xml_data);
-unsigned int find_in_xml_body (std::string keyword, Rom_File rom_list[], std::vector <char> &xml_data);
-std::string find_in_char_vector (std::string keyword, std::vector <char> &data_string);
+bool load_file (std::string f_name, std::vector <std::string> &xml_data);
+bool verify_xml (std::vector <std::string> &xml_data);
+std::string find_in_xml_header (std::string keyword, std::vector <std::string> &xml_data);
+unsigned int find_in_xml_body (std::string keyword, Rom_File rom_list[], std::vector <std::string> &xml_data);
+std::string find_in_string (std::string keyword, std::string input);
 
 #endif

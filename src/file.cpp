@@ -1,5 +1,6 @@
 #include "file.h"
 
+// Get a list of files within a given directory
 unsigned int populate_dir_entries (std::string directory, std::string entry_list [], unsigned int list_size) {
     DIR *dir_ptr;
     struct dirent *dirent_ptr;
