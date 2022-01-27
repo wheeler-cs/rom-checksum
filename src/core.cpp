@@ -1,3 +1,14 @@
+/* File: core.cpp
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1330
+ *
+ * File contains definitions for functions that bind together functionality of the rest of the files (hence the name
+ * 'core'). Memory allocation and deallocation for Xml and Rom_File data structures is handled here, along with loading
+ * data from inputs files.
+ * 
+ * See core.h for function prototypes.
+*/
+
 #include "core.h"
 
 // Handle command-line arguments passed into the program (if any)
@@ -5,7 +16,7 @@ void handle_args (int argc, char** argv, std::string *data_dir, std::string *rom
     std::string argv_cpp_string = "";
 
     if (argc > 1) {
-        for (unsigned int i = 1; i < argc; i++) {
+        for (int i = 1; i < argc; i++) {
             argv_cpp_string = argv[i];
 
             // 'roms' directory set for files to be validated
@@ -87,8 +98,8 @@ void deallocate_Rom_File (Rom_File* rom_ptr) {
 
 // Populate a list of XML files in the 'data' directory
 unsigned int populate_Xml (Xml xml_data[], std::string xml_dir, unsigned int size, bool is_silent) {
-    std::string* dir_list = new std::string[size];
-    unsigned int list_size = 0;
+    std::string* dir_list {new std::string[size]};
+    unsigned int list_size {0};
 
     std::vector <std::string> temp_xml_data;
 
@@ -125,8 +136,8 @@ unsigned int populate_Xml (Xml xml_data[], std::string xml_dir, unsigned int siz
 
 // Populate a list of ROM files in the 'rom' directory
 unsigned int populate_Rom_File (Rom_File rom_data[], std::string rom_dir, unsigned int size, bool is_silent) {
-    std::string* dir_list = new std::string[size];
-    unsigned int list_size = 0;
+    std::string* dir_list {new std::string[size]};
+    unsigned int list_size {0};
 
     list_size = populate_dir_entries (rom_dir, dir_list, size);
 
@@ -135,12 +146,16 @@ unsigned int populate_Rom_File (Rom_File rom_data[], std::string rom_dir, unsign
             std::cout << "\nGenerating data for ROMs..." << std::flush;
     }
 
+    std::string md5 {""}, sha1 {""};
+    unsigned long long file_size {0};
+
     // Generate data from rom file to be compared to known values
     for (unsigned int i = 0; i < list_size; i++) {
         rom_data[i].set_name (dir_list[i]);
-        rom_data[i].set_md5 (generate_md5 (dir_list[i]));
-        rom_data[i].set_sha1 (generate_sha1 (dir_list[i]));
-        rom_data[i].set_size (generate_f_size (dir_list[i]));
+        generate_file_info (dir_list[i], md5, sha1, file_size);
+        rom_data[i].set_md5 (md5);
+        rom_data[i].set_sha1 (sha1);
+        rom_data[i].set_size (file_size);
     }
 
     delete[] dir_list;
@@ -152,7 +167,10 @@ unsigned int populate_Rom_File (Rom_File rom_data[], std::string rom_dir, unsign
 
 // Verify roms by comparing generated values to known values
 void verify_roms (Xml xml_data[], unsigned int xml_list_size, Rom_File rom_data[], unsigned int rom_list_size, bool is_silent) {
-    Rom_File* r_ptr_md5 = NULL, *r_ptr_sha1 = NULL, *r_ptr_size = NULL;
+    // Pointers used to verify rom data
+    Rom_File *r_ptr_md5 {NULL},
+             *r_ptr_sha1 {NULL},
+             *r_ptr_size {NULL};
 
     switch (is_silent) {
         case 0:

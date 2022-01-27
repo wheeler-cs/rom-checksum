@@ -1,3 +1,12 @@
+/* File: rom.cpp
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1431
+ * 
+ * File contains definitions for the Rom_File class functions, along with a basic constructor.
+ * 
+ * See rom.h for class definition and member data.
+*/
+
 #include "rom.h"
 
 

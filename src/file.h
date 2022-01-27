@@ -1,3 +1,13 @@
+/* File
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1402
+ * 
+ * File contains function prototypes for directory interfacing. Requires the non-standard dirent.h header not found
+ * on Windows machines.
+ * 
+ * See file.cpp for function definitions.
+*/
+
 #ifndef FILE_H
 #define FILE_H
 

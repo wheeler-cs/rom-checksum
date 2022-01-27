@@ -1,3 +1,12 @@
+/* File: rom.h
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1428
+ * 
+ * File contains definition for the Rom_File class.
+ * 
+ * See rom.cpp for function definitions.
+*/
+
 #ifndef ROM_H
 #define ROM_H
 

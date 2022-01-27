@@ -1,3 +1,15 @@
+/* File: xml.h
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1441
+ * 
+ * File contains Xml-interfacing class definition along with prototypes for various text-handling functions. Various
+ * constant definitions are also defined here, including the maximum number of entries that can be loaded from an XML
+ * file and the header of an XML header.
+ * 
+ * See xml.cpp for function definitions.
+*/
+
+
 #ifndef XML_H
 #define XML_H
 

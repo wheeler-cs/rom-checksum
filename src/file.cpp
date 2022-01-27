@@ -1,3 +1,13 @@
+/* File: file.cpp
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1357
+ * 
+ * File contains function definitions for directory-intefacing functions. Requires usage of operations found in the
+ * dirent.h header, which is native to Linux, but has a wrapper for Windows.
+ * 
+ * See file.h for function prototypes.
+*/
+
 #include "file.h"
 
 // Get a list of files within a given directory

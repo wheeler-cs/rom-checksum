@@ -1,3 +1,13 @@
+/* File: xml.cpp
+ * Author: Lieutenant Debaser
+ * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1441
+ * 
+ * File contains definitions for the Xml class functions, along with constructor definitions. Functions for handling
+ * searching within strings and XML data are also defined here.
+ * 
+ * See xml.h for Xml class definition and other function prototypes.
+*/
+
 #include "xml.h"
 
 // Class constructors
@@ -148,7 +158,6 @@ bool load_file (std::string f_name, std::vector <std::string> &xml_data) {
 
     std::ifstream xml_read;
     xml_read.open (f_name.c_str());
-    char rm_char {};
 
     if (xml_read.is_open()) {
         std::string buffer;
