@@ -1,41 +1,58 @@
 # rom-checksum
-A program for verifying the checksums of ROMs.
+A program for ensuring the validity of ROMs using checksums.
 
-# Compilation and Usage
-This program utilize the Crypto++ library and the C++ 11 standard. Installation instructions for Crypto++ will vary 
-from platform to platform, but the source code and latest releases can be found on the
-[Crypto++ GitHub Page](https://github.com/weidai11/cryptopp).
+# Compilation and Execution
+## Required Environment
+This program requires a C++ compiler capable of implementing the C++11 standard. The only external library used is the
+[Crypto++ library](https://github.com/weidai11/cryptopp) for generating hashes. Installation instructions will vary
+from platform to platform. For Windows, a wrapper for the `dirent.h` file that is commonly found on Linux systems will
+also need to be obtained and implemented into your workflow.
 
-The program can be compiled on Linux as follows:
-<p>
-<code>
-    > git clone https://github.com/Lieutenant-Debaser/rom-checksum
-    <p> > cd rom-checksum
-    <p> > mkdir build
-    <p> > make all
-</code>
+## Compiling
+Once the environment is set up, the program can be compiled as follows:
 
-If multi-threading should be enabled for the hashing of roms, that can be done by issuing <code>make all-mt</code>
-instead.
+`> git clone https://github.com/wheeler-cs/rom-checksum`
 
-This will output an executable named "rom-check" in the "build" directory. Execute the program with the "-h" argument
-for a list of arguments that can be passed in. If you wish to execute the program with no arguments,
-<code>make run</code> can be issued from the command line to run the program.
+`> cd rom-checksum`
 
-The default directory for XML files is the <code>data</code> directory, while the default directory for ROMs is the 
-<code>roms</code> directory. This can be changed with the <code>-d</code> and <code>-r</code> arguments respectively.
-The default directories must be in the same directory as the executable.
+`> mkdir build`
 
-Compiling on Windows will most likely involve adding the Crypto++ library to Visual Studio and compiling within that.
-I believe also a wrapper for the dirent.h header must also be used.
+`> make all`
 
-# XML Data Files
-XML data files can be obtained from various sources. The most common source for disc-based systems will be 
-[Redump](http://redump.org/), and [No-Intro's Dat-o-Matic](https://datomatic.no-intro.org/) will have cartridge-based 
-systems. I want to make abundantly clear that these are <b>not</b> ROMs. They are data files containing the hash
-values of various games that have been compiled by numerous users.
+If you desire multithreading, `make all-mt` can be issued instead. This will handle compiling all multithread-enabled
+files.
+
+## Usage
+The executable "./build/rom-check" will be generated. The `-h` option can be used to get a list of parameters that can
+be used during execution. If no parameters need to be specified, `make run` can be issued to run the program with its
+default behavior.
+
+## Data Directories
+ROMs should be placed in the "roms/" folder and XML files should be placed in the "data/" folder. Bother of these
+folders should be in the same directory as the "rom-check" executable. These directories can also be overwritten with
+the `-r` and `-d` arguments respectively.
+
+## Data Files
+The format of the data files used is the same as those used by [Redump](http://redump.org/) or
+[No-Intro](https://datomatic.no-intro.org/). Custom XML files could also be written to follow this style and allow for
+more files to be hashed, such as executables or data files.
 
 # Legal
-This program is provided as-is with absolutely no warranty and no guarantee of fitness for an application of any kind.
-This program also cannot be used to create, transfer, or otherwise aid in the illegal distribution of copyrighted
-material. This tool is intended only to verify dumps of roms made by the user for personal use.
+## Warranty
+The program and source code are provided as-is without any sort of warranty or guarantee of fitness for an application
+of any kind. The end-user, and the end-user alone, accepts full responsibility for the consequences of using anything
+taken or derived (directly or indirectly) from the content of this repository. This includes any potential loss of
+data or other kinds of damages.
+
+## License
+All source code, unless specified otherwise, is licensed under the MIT license. For more information regarding what all
+that entails, please refer to the "LICENSE" file or [this page](https://mit-license.org/).
+
+## Piracy
+This tool is not developed with the intent of facilitating the act of piracy. No copyrighted material (including video
+game ROMs, video game source code, console BIOS, etc.) can be generated, copied, downloaded, or otherwise manifested
+using the software present in this repository.
+
+# Contributing
+I am always interested in what other people think needs to be changed or improved with the program. Pull requests are
+also welcome, so long as they are conducive to the progress of the program.
