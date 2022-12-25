@@ -4,6 +4,7 @@ STD=-std=c++11
 CRYPTPP=-D CRYPTOPP_ENABLE_NAMESPACE_WEAK=1
 MT_OPT=-pthread -D MULTITHREAD_ENABLE
 LIB=-l:libcryptopp.a
+EXE=rom-check
 
 
 # Generic targets to compile executables
@@ -12,12 +13,12 @@ all: exe
 all-mt: exe-mt
 
 
-# Actual executable targets
+# Targets for compiling the executable
 exe: build/main.o build/core.o build/file.o build/hash.o build/rom.o build/xml.o
-	$(GCC) $(STD) $(CRYPTPP) $^ -o build/rom-check $(LIB)
+	$(GCC) $(STD) $(CRYPTPP) $^ -o build/$(EXE) $(LIB)
 
 exe-mt: build/main.o build/core.o build/file.o build/hash-mt.o build/rom.o build/xml.o
-	$(GCC) $(STD) $(CRYPTPP) $(MT_OPT) $^ -o build/rom-check $(LIB)
+	$(GCC) $(STD) $(CRYPTPP) $(MT_OPT) $^ -o build/$(EXE) $(LIB)
 
 
 # Targets for individual source files
@@ -44,11 +45,14 @@ build/xml.o: src/xml.h src/xml.cpp
 
 
 # Utility functions for cleaning and execution
+.PHONY: clean
 clean:
 	rm -rf build/*
 
+.PHONY: run
 run:
-	./build/rom-check
+	./build/$(EXE)
 
+.PHONY: run-silent
 run-silent:
-	./build/rom-check -s
+	./build/$(EXE) -s
