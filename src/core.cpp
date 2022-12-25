@@ -65,10 +65,8 @@ void handle_args (int argc, char** argv, std::string *data_dir, std::string *rom
 
 // Allocate the memory needed to store XML data
 Xml* allocate_Xml (unsigned int size, bool is_silent) {
-    switch (is_silent) {
-        case 0:
-            std::cout << "\nAllocating XML memory..." << std::flush;
-    }
+    if(!is_silent)
+        std::cout << "\nAllocating XML memory..." << std::flush;
     return (new Xml[size]);
 }
 
@@ -81,10 +79,8 @@ void deallocate_Xml (Xml* xml_ptr) {
 
 // Allocate the memory needed to store ROM data
 Rom_File* allocate_Rom_File (unsigned int size, bool is_silent) {
-    switch (is_silent) {
-        case 0:
-            std::cout << "\nAllocating ROM memory..." << std::flush;
-    }
+    if(!is_silent)
+        std::cout << "\nAllocating ROM memory..." << std::flush;
 
     return (new Rom_File[size]);
 }
@@ -105,10 +101,8 @@ unsigned int populate_Xml (Xml xml_data[], std::string xml_dir, unsigned int siz
 
     list_size = populate_dir_entries (xml_dir, dir_list, size);
 
-    switch (is_silent) {
-        case 0:
-            std::cout << "\nLoading XML data..." << std::flush;
-    }
+    if(!is_silent)
+        std::cout << "\nLoading XML data..." << std::flush;
 
     for (unsigned int i = 0; i < list_size; i++) {
         load_file (dir_list[i], temp_xml_data);
@@ -141,10 +135,8 @@ unsigned int populate_Rom_File (Rom_File rom_data[], std::string rom_dir, unsign
 
     list_size = populate_dir_entries (rom_dir, dir_list, size);
 
-    switch (is_silent) {
-        case 0:
-            std::cout << "\nGenerating data for ROMs..." << std::flush;
-    }
+    if(!is_silent)
+        std::cout << "\nGenerating data for ROMs..." << std::flush;
 
     std::string md5 {""}, sha1 {""};
     unsigned long long file_size {0};
@@ -172,10 +164,8 @@ void verify_roms (Xml xml_data[], unsigned int xml_list_size, Rom_File rom_data[
              *r_ptr_sha1 {NULL},
              *r_ptr_size {NULL};
 
-    switch (is_silent) {
-        case 0:
-            std::cout << "\nValidating files..." << std::flush;
-    }
+    if(!is_silent)
+        std::cout << "\nValidating files..." << std::flush;
 
     // Compare rom data to data loaded in from XML data files
     for (unsigned int rom_index = 0; rom_index < rom_list_size; rom_index++) {
@@ -192,7 +182,7 @@ void verify_roms (Xml xml_data[], unsigned int xml_list_size, Rom_File rom_data[
         // If at least one of the pointers was NULL, a match was not found
         if ((r_ptr_md5 == NULL) || (r_ptr_sha1 == NULL) || (r_ptr_size == NULL))
             std::cerr << "\n\n! Could not verify: " << rom_data[rom_index].get_name();
-        else if (!(is_silent))
+        else if (!is_silent)
             std::cout << "\n\n" << rom_data[rom_index].get_name() << ":\n\t" << r_ptr_md5->get_name();
 
     }
