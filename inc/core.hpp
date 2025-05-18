@@ -1,15 +1,19 @@
-/* File: core.h
- * Author: Lieutenant Debaser
- * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1341
+/**
+ * @file core.hpp
+ * @author Anna Wheeler (wheeler-cs)
+ * @date May 18, 2025
  * 
  * File contains prototypes for functions that tie together rest of the files (hence the name 'core'). The parameters
  * required to interface with functions defined in core.cpp can easily be seen here.
  * 
- * See core.cpp for function definitions.
+ * @see core.cpp
+ * 
 */
+
 
 #ifndef CORE_H
 #define CORE_H
+
 
 #include <iostream>
 #include <vector>
@@ -19,11 +23,6 @@
 #include "rom.hpp"
 #include "xml.hpp"
 
-void handle_args (int argc,
-                  char** argv,
-                  std::string *data_dir,
-                  std::string *rom_dir, 
-                  bool *is_silent);
 
 Xml* allocate_Xml (unsigned int size, bool is_silent);
 void deallocate_Xml (Xml* xml_ptr);

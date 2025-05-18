@@ -1,66 +1,18 @@
-/* File: core.cpp
- * Author: Lieutenant Debaser
- * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1330
+/** 
+ * @file core.cpp
+ * @author Anna Wheeler (wheeler-cs)
+ * @date May 18, 2025
  *
  * File contains definitions for functions that bind together functionality of the rest of the files (hence the name
  * 'core'). Memory allocation and deallocation for Xml and Rom_File data structures is handled here, along with loading
  * data from inputs files.
  * 
- * See core.h for function prototypes.
+ * @see core.hpp
+ * 
 */
 
+
 #include "core.hpp"
-
-// Handle command-line arguments passed into the program (if any)
-void handle_args (int argc, char** argv, std::string *data_dir, std::string *rom_dir, bool *is_silent) {
-    std::string argv_cpp_string = "";
-
-    if (argc > 1) {
-        for (int i = 1; i < argc; i++) {
-            argv_cpp_string = argv[i];
-
-            // 'roms' directory set for files to be validated
-            if (argv_cpp_string == "-r") {
-                if (i + 1 < argc) {
-                    argv_cpp_string = argv[i + 1];
-                    *rom_dir = argv_cpp_string;
-                    i++;
-                }
-                else {
-                    std::cerr << "\n ! Missing directory for -r argument!";
-                }
-            }
-            // 'data' directory set for XML files
-            else if (argv_cpp_string == "-d") {
-                if (i + 1 < argc) {
-                    argv_cpp_string = argv[i + 1];
-                    *data_dir = argv_cpp_string;;
-                    i++;
-                }
-                else {
-                    std::cerr << "\n ! Missing directory for -d argument!";
-                }
-            }
-            // Set silent mode for program
-            else if (argv_cpp_string == "-s") {
-                *is_silent = true;
-            }
-            // Help menu with explanation of arguments
-            else if (argv_cpp_string == "-h") {
-                std::cout << "\nOptions: "
-                          << "\n\t-s: Do not send program output to terminal (errors are still sent to std::cerr)."
-                          << "\n\t-r [directory]: Define the directory containing the roms to be checked."
-                          << "\n\t-d [directory]: Define the directory containing XML data files for verification."
-                          << '\n' << std::endl;
-                exit (0);
-            }
-            // Unhandled argument
-            else {
-                std::cerr << "\n! Unhandled argument: " << argv_cpp_string;
-            }
-        }
-    }
-}
 
 
 // Allocate the memory needed to store XML data

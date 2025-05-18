@@ -1,23 +1,25 @@
-/* File: main.cpp
- * Author: Lieutenant Debaser
- * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1445
+/**
+ * @file main.cpp
+ * @author Anna Wheeler (wheeler-cs)
+ * @date May 18, 2025
  * 
  * File contains main, which interfaces with other functions to load XML data, generate information for input files,
  * and handle memeory management.
  * 
- * See other files within program.
 */
 
-#include "core.hpp"
-#include "file.hpp"
-#include "hash.hpp"
-#include "rom.hpp"
-#include "xml.hpp"
+
+#include "arguments.hpp"
+
 
 int main(int argc, char** argv) {
-    bool is_silent = false;
-    std::string data_directory = "data", rom_directory = "roms";
+    Arguments args = Arguments(argc, argv);
 
+    if((args.get_op_mode() != MODE_STOP) && (args.get_op_mode() != MODE_UNDEFINED))
+    {
+        std::cout << "Running...";
+    }
+    /*
     // Handle CLI arguments
     handle_args (argc, argv, &data_directory, &rom_directory, &is_silent);
 
@@ -43,6 +45,7 @@ int main(int argc, char** argv) {
     // Deallocate memory
     deallocate_Xml (xml_data);
     deallocate_Rom_File (rom_data);
+    */
 
 
     // Terminate program
