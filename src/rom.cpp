@@ -7,7 +7,7 @@
  * See rom.h for class definition and member data.
 */
 
-#include "rom.h"
+#include "rom.hpp"
 
 
 // Class constructors

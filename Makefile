@@ -23,25 +23,25 @@ exe-mt: build/main.o build/core.o build/file.o build/hash-mt.o build/rom.o build
 
 
 # Targets for individual source files
-build/main.o: inc/file.h inc/hash.h inc/rom.h inc/xml.h src/main.cpp
+build/main.o: inc/file.hpp inc/hash.hpp inc/rom.hpp inc/xml.hpp src/main.cpp
 	$(GCC) $(STD) $(CRYPTPP) src/main.cpp $(CFLAGS) -o $@ -I$(INC)
 
-build/core.o: inc/core.h inc/file.h inc/hash.h inc/rom.h inc/xml.h src/core.cpp
+build/core.o: inc/core.hpp inc/file.hpp inc/hash.hpp inc/rom.hpp inc/xml.hpp src/core.cpp
 	$(GCC) $(STD) $(OPT) $(CRYPTPP) src/core.cpp $(CFLAGS) -o $@ -I$(INC)
 
-build/file.o: inc/file.h src/file.cpp
+build/file.o: inc/file.hpp src/file.cpp
 	$(GCC) $(STD) src/file.cpp $(CFLAGS) -o $@ -I$(INC)
 
-build/hash.o: inc/hash.h src/hash.cpp
+build/hash.o: inc/hash.hpp src/hash.cpp
 	$(GCC) $(STD) $(CRYPTPP) src/hash.cpp $(CFLAGS) -o $@ -I$(INC) $(LIB)
 
-build/hash-mt.o: inc/hash.h src/hash.cpp
+build/hash-mt.o: inc/hash.hpp src/hash.cpp
 	$(GCC) $(STD) $(CRYPTPP) $(MT_OPT) src/hash.cpp $(CFLAGS) -o $@ -I$(INC) $(LIB)
 
-build/rom.o: inc/rom.h src/rom.cpp
+build/rom.o: inc/rom.hpp src/rom.cpp
 	$(GCC) $(STD) src/rom.cpp $(CFLAGS) -o $@ -I$(INC)
 
-build/xml.o: inc/xml.h src/xml.cpp
+build/xml.o: inc/xml.hpp src/xml.cpp
 	$(GCC) $(STD) src/xml.cpp $(CFLAGS) -o $@ -I$(INC)
 
 

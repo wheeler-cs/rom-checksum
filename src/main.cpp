@@ -8,11 +8,11 @@
  * See other files within program.
 */
 
-#include "core.h"
-#include "file.h"
-#include "hash.h"
-#include "rom.h"
-#include "xml.h"
+#include "core.hpp"
+#include "file.hpp"
+#include "hash.hpp"
+#include "rom.hpp"
+#include "xml.hpp"
 
 int main(int argc, char** argv) {
     bool is_silent = false;

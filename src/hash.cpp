@@ -8,7 +8,7 @@
  * See hash.h for function prototypes and Makefile for compilation operations.
 */
 
-#include "hash.h"
+#include "hash.hpp"
 
 #ifdef MULTITHREAD_ENABLE
 

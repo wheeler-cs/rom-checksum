@@ -8,7 +8,7 @@
  * See xml.h for Xml class definition and other function prototypes.
 */
 
-#include "xml.h"
+#include "xml.hpp"
 
 // Class constructors
 

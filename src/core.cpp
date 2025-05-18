@@ -9,7 +9,7 @@
  * See core.h for function prototypes.
 */
 
-#include "core.h"
+#include "core.hpp"
 
 // Handle command-line arguments passed into the program (if any)
 void handle_args (int argc, char** argv, std::string *data_dir, std::string *rom_dir, bool *is_silent) {

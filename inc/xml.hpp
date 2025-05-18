@@ -24,7 +24,7 @@
 #include <string>
 #include <vector>
 
-#include "rom.h"
+#include "rom.hpp"
 
 class Xml {
 public:

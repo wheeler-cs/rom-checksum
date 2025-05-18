@@ -14,10 +14,10 @@
 #include <iostream>
 #include <vector>
 
-#include "file.h"
-#include "hash.h"
-#include "rom.h"
-#include "xml.h"
+#include "file.hpp"
+#include "hash.hpp"
+#include "rom.hpp"
+#include "xml.hpp"
 
 void handle_args (int argc,
                   char** argv,
