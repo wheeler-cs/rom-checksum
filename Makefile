@@ -15,10 +15,10 @@ all-mt: exe-mt
 
 
 # Targets for compiling the executable
-exe: build/main.o build/arguments.o build/core.o build/file.o build/hash.o build/rom.o build/ups.o build/xml.o
+exe: build/main.o build/arguments.o build/file.o build/hash.o build/rom.o build/ups.o build/verify.o build/xml.o
 	$(GCC) $(STD) $(CRYPTPP) $^ -o build/$(EXE) -I$(INC) $(LIB)
 
-exe-mt: build/main.o build/arguments.o build/core.o build/file.o build/hash-mt.o build/rom.o build/ups.o build/xml.o
+exe-mt: build/main.o build/arguments.o build/file.o build/hash-mt.o build/rom.o build/ups.o build/verify.o build/xml.o
 	$(GCC) $(STD) $(CRYPTPP) $(MT_OPT) $^ -o build/$(EXE) -I$(INC) $(LIB)
 
 
@@ -28,9 +28,6 @@ build/main.o: inc/file.hpp inc/hash.hpp inc/rom.hpp inc/ups.hpp inc/xml.hpp src/
 
 build/arguments.o: inc/arguments.hpp src/arguments.cpp
 	$(GCC) $(STD) src/arguments.cpp $(CFLAGS) -o $@ -I$(INC)
-
-build/core.o: inc/core.hpp inc/file.hpp inc/hash.hpp inc/rom.hpp inc/xml.hpp src/core.cpp
-	$(GCC) $(STD) $(OPT) $(CRYPTPP) src/core.cpp $(CFLAGS) -o $@ -I$(INC)
 
 build/file.o: inc/file.hpp src/file.cpp
 	$(GCC) $(STD) src/file.cpp $(CFLAGS) -o $@ -I$(INC)
@@ -47,7 +44,10 @@ build/ups.o: inc/ups.hpp src/ups.cpp
 build/rom.o: inc/rom.hpp src/rom.cpp
 	$(GCC) $(STD) src/rom.cpp $(CFLAGS) -o $@ -I$(INC)
 
-build/xml.o: inc/xml.hpp src/xml.cpp
+build/verify.o: inc/verify.hpp src/verify.cpp
+	$(GCC) $(STD) src/verify.cpp $(CFLAGS) -o $@ -I$(INC)
+
+build/xml.o: inc/xml.hpp src/xml.cpp inc/file.hpp
 	$(GCC) $(STD) src/xml.cpp $(CFLAGS) -o $@ -I$(INC)
 
 

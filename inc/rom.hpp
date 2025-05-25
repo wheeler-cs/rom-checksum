@@ -1,11 +1,11 @@
-/* File: rom.h
- * Author: Lieutenant Debaser
- * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1428
+/**
+ * @file rom.cpp
+ * @author Anna Wheeler (wheeler-cs)
+ * @date May 25, 2025
  * 
- * File contains definition for the Rom_File class.
+ * @brief Contains the class definition for `Rom_File` and prototypes for supporting functions.
  * 
- * See rom.cpp for function definitions.
-*/
+ */
 
 #ifndef ROM_H
 #define ROM_H
@@ -18,24 +18,37 @@ public:
     Rom_File();
 
     // Accessors
-    std::string get_name();
-    std::string get_md5();
-    std::string get_sha1();
-    unsigned long long get_size();
+    std::string        get_name() { return name; }
+    std::string        get_md5()  { return md5; }
+    std::string        get_sha1() { return sha1; }
+    unsigned long long get_size() { return size; }
 
     // Mutators
-    void set_name (std::string s);
-    void set_md5 (std::string s);
-    void set_sha1 (std::string s);
-    void set_size (unsigned long long i);
+    void set_name(std::string n)        { name = n;}
+    void set_md5(std::string m)         { md5 = m;}
+    void set_sha1(std::string s)        { sha1 = s;}
+    void set_size(unsigned long long s) { size = s;}
 
 
 private:
-    std::string name;
-    
-    std::string md5, sha1;
-
+    std::string name, md5, sha1;
     unsigned long long size;
 };
+
+/**
+ * 
+ */
+Rom_File * allocate_Rom_File (unsigned int, bool);
+
+/**
+ * 
+ */
+void deallocate_Rom_File (Rom_File *);
+
+/**
+ * 
+ */
+unsigned int populate_Rom_File (Rom_File[], std::string, unsigned int, bool);
+
 
 #endif

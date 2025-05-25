@@ -1,13 +1,11 @@
-/* File: xml.h
- * Author: Lieutenant Debaser
- * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1441
+/**
+ * @file xml.hpp
+ * @author Anna Wheeler (wheeler-cs)
+ * @date May 25, 2025
  * 
- * File contains Xml-interfacing class definition along with prototypes for various text-handling functions. Various
- * constant definitions are also defined here, including the maximum number of entries that can be loaded from an XML
- * file and the header of an XML header.
+ * @brief Holds the class definition for Xml and other function prototypes.
  * 
- * See xml.cpp for function definitions.
-*/
+ */
 
 
 #ifndef XML_H
@@ -37,22 +35,22 @@ public:
          std::string h);
 
     // Accessors
-    std::string get_name();
-    std::string get_description();
-    std::string get_author();
-    std::string get_homepage();
-    Rom_File get_game (unsigned int index);
-    Rom_File* get_list();
-    unsigned int get_list_size();
+    std::string  get_name()                   { return name; }
+    std::string  get_description()            { return description; }
+    std::string  get_author()                 { return author; }
+    std::string  get_homepage()               { return homepage; }
+    Rom_File     get_game(unsigned int index) { return list[index]; }
+    Rom_File *   get_list()                   { return &list[0]; }
+    unsigned int get_list_size()              { return list_size; }
 
     // Mutators
-    void set_name (std::string s);
-    void set_description (std::string s);
-    void set_author (std::string s);
-    void set_homepage (std::string s);
-    bool set_rom (Rom_File r, unsigned int index);
-    bool append_rom (Rom_File r);
-    void set_list_size (unsigned int i);
+    void set_name        (std::string n)  { name = n; }
+    void set_description (std::string d)  { description = d; }
+    void set_author      (std::string a)  { author = a; }
+    void set_homepage    (std::string h)  { homepage = h; }
+    void set_list_size   (unsigned int i) { list_size = i; }
+    bool set_rom         (Rom_File r, unsigned int index);
+    bool append_rom      (Rom_File r);
 
     // Rom searching
     Rom_File* search_rom_md5 (std::string key);
@@ -65,6 +63,26 @@ private:
     Rom_File list [MAX_LIST_SIZE];
     unsigned int list_size;
 };
+
+/** @brief Allocates memory for a new `Xml` class instance.
+ * 
+ * @param size The size of the array of `Xml` instances to be allocated.
+ * @param f_silence Flag that determines if message should be sent to stdout.
+ * 
+ * @return Newly-allocated `Xml` instance.
+ * 
+ */
+Xml * allocate_Xml(unsigned int, bool);
+
+
+/** @brief Deallocates the memory allocated an `Xml` class instance.
+ * 
+ * @param xml_ptr Pointer to memory associated with an `Xml` instance.
+ * 
+ * @note Deletes the memory and handles the dangling pointer.
+ * 
+ */
+void deallocate_Xml(Xml *);
 
 bool load_file (std::string f_name, std::vector <std::string> &xml_data);
 bool verify_xml (std::vector <std::string> &xml_data);

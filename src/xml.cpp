@@ -1,14 +1,15 @@
-/* File: xml.cpp
- * Author: Lieutenant Debaser
- * Last Update (yyyy-mm-dd_hhMM): 2022-01-27_1441
+/**
+ * @file xml.cpp
+ * @author Anna Wheeler (wheeler-cs)
+ * @date May 25, 2025
  * 
- * File contains definitions for the Xml class functions, along with constructor definitions. Functions for handling
- * searching within strings and XML data are also defined here.
+ * @brief Contains function definitions for the `Xml` class, along with additional supporting functions.
  * 
- * See xml.h for Xml class definition and other function prototypes.
-*/
+ */
 
 #include "xml.hpp"
+
+#include "file.hpp"
 
 // Class constructors
 
@@ -21,75 +22,13 @@ Xml::Xml() {
 }
 
 
-Xml::Xml (std::string n, 
-          std::string d,
-          std::string a,
-          std::string h) {
+Xml::Xml (std::string n, std::string d, std::string a, std::string h) {
 
     name = n;
     description = d;
     author = a;
     homepage = h;
     list_size = 0;
-}
-
-
-// Accessors
-
-std::string Xml::get_name() {
-    return name;
-}
-
-
-std::string Xml::get_description() {
-    return description;
-}
-
-
-std::string Xml::get_author() {
-    return author;
-}
-
-
-std::string Xml::get_homepage() {
-    return homepage;
-}
-
-
-Rom_File Xml::get_game (unsigned int index) {
-    return list [index];
-}
-
-
-Rom_File* Xml::get_list() {
-    return &list[0];
-}
-
-
-unsigned int Xml::get_list_size() {
-    return list_size;
-}
-
-
-// Mutators
-
-void Xml::set_name (std::string s) {
-    name = s;
-}
-
-
-void Xml::set_description (std::string s) {
-    description = s;
-}
-
-
-void Xml::set_author (std::string s) {
-    author = s;
-}
-
-
-void Xml::set_homepage (std::string s) {
-    homepage = s;
 }
 
 
@@ -114,11 +53,7 @@ bool Xml::append_rom (Rom_File r) {
 }
 
 
-void Xml::set_list_size (unsigned int i) {
-    list_size = i;
-}
-
-
+// =====================================================================================================================
 // Rom searching functions
 
 Rom_File* Xml::search_rom_md5 (std::string key) {
@@ -151,7 +86,23 @@ Rom_File* Xml::search_rom_size (unsigned long long key) {
 }
 
 
-// Non-class functions
+Xml * allocate_Xml(unsigned int size, bool f_silence)
+{
+    if(!f_silence)
+    {
+        std::cout << "\nAllocating XML memory..." << std::flush;
+    }
+
+    return(new Xml[size]);
+}
+
+
+void deallocate_Xml(Xml * xml_ptr)
+{
+    delete[] xml_ptr;
+    xml_ptr = NULL;
+}
+
 
 // Load the contents of a file into a structure and return that structure
 bool load_file (std::string f_name, std::vector <std::string> &xml_data) {
@@ -183,6 +134,41 @@ bool load_file (std::string f_name, std::vector <std::string> &xml_data) {
     return false;
 }
 
+
+// Populate a list of XML files in the 'data' directory
+unsigned int populate_Xml (Xml xml_data[], std::string xml_dir, unsigned int size, bool is_silent) {
+    std::string* dir_list {new std::string[size]};
+    unsigned int list_size {0};
+
+    std::vector <std::string> temp_xml_data;
+
+    list_size = populate_dir_entries (xml_dir, dir_list, size);
+
+    if(!is_silent)
+        std::cout << "\nLoading XML data..." << std::flush;
+
+    for (unsigned int i = 0; i < list_size; i++) {
+        load_file (dir_list[i], temp_xml_data);
+
+        // If XML file is valid, load data that is found in header into Xml class
+        if (verify_xml (temp_xml_data)) {
+            xml_data[i].set_name (find_in_xml_header ("name", temp_xml_data));
+            xml_data[i].set_description (find_in_xml_header ("description", temp_xml_data));
+            xml_data[i].set_author (find_in_xml_header ("author", temp_xml_data));
+            xml_data[i].set_homepage (find_in_xml_header ("homepage", temp_xml_data));
+            xml_data[i].set_list_size (find_in_xml_body ("rom", xml_data[i].get_list(), temp_xml_data));
+        }
+        else {
+            std::cerr << '\n' << dir_list[i] << " is not a valid XML file!";
+        }
+
+        temp_xml_data.clear();
+    }
+
+    delete[] dir_list;
+
+    return list_size;
+}
 
 // Ensure that an input file has the XML_HEADER on its first line
 bool verify_xml (std::vector <std::string> &xml_data) {

@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
  * @author Anna Wheeler (wheeler-cs)
- * @date May 18, 2025
+ * @date May 25, 2025
  * 
  * File contains main, which interfaces with other functions to load XML data, generate information for input files,
  * and handle memeory management.
@@ -18,6 +18,14 @@ int main(int argc, char** argv) {
     if((args.get_op_mode() != MODE_STOP) && (args.get_op_mode() != MODE_UNDEFINED))
     {
         std::cout << "Running...";
+        switch(args.get_op_mode())
+        {
+            case MODE_VERIFY:
+                
+                break;
+            case MODE_PATCH:
+                break;
+        }
     }
     /*
     // Handle CLI arguments
