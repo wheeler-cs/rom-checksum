@@ -1,7 +1,7 @@
 /**
  * @file xml.cpp
  * @author Anna Wheeler (wheeler-cs)
- * @date May 25, 2025
+ * @date May 26, 2025
  * 
  * @brief Contains function definitions for the `Xml` class, along with additional supporting functions.
  * 
@@ -104,34 +104,33 @@ void deallocate_Xml(Xml * xml_ptr)
 }
 
 
-// Load the contents of a file into a structure and return that structure
-bool load_file (std::string f_name, std::vector <std::string> &xml_data) {
+bool load_file (std::string f_name, std::vector <std::string> &xml_data)
+{
+    // Store original size of data for load success check
+    unsigned int starting_data_len = xml_data.size();
 
     std::ifstream xml_read;
-    xml_read.open (f_name.c_str());
+    xml_read.open(f_name.c_str());
 
     if (xml_read.is_open()) {
         std::string buffer;
 
-        while (true) {
-            getline (xml_read, buffer);
-            // Check for EOF and stop if it has been reached
-            if (xml_read.eof()) {
-                break;
-            }
+        getline(xml_read, buffer);
+        while(!(xml_read.eof())) {
             // Check for certain characters and delete them if necessary
-            buffer.erase (remove (buffer.begin(), buffer.end(), '\r'), buffer.end());   // Carridge Return
-            buffer.erase (remove (buffer.begin(), buffer.end(), '\t'), buffer.end());   // Tab
+            buffer.erase(remove(buffer.begin(), buffer.end(), '\r'), buffer.end());   // Carridge Return (thanks Windows)
+            buffer.erase(remove(buffer.begin(), buffer.end(), '\t'), buffer.end());   // Tab
 
-            xml_data.push_back (buffer);
+            xml_data.push_back(buffer);
 
+            getline(xml_read, buffer);
         }
 
         xml_read.close();
-        return true;
     }
 
-    return false;
+    // See if any change is size occurred
+    return(starting_data_len > xml_data.size());
 }
 
 
@@ -173,7 +172,8 @@ unsigned int populate_Xml (Xml xml_data[], std::string xml_dir, unsigned int siz
 // Ensure that an input file has the XML_HEADER on its first line
 bool verify_xml (std::vector <std::string> &xml_data) {
 
-    if (xml_data[0] == XML_HEADER) {
+    if (xml_data[0] == XML_HEADER)
+    {
         return true;
     }
 

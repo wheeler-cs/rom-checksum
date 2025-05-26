@@ -1,7 +1,7 @@
 /**
  * @file arguments.cpp
  * @author Anna Wheeler (wheeler-cs)
- * @date May 18, 2025
+ * @date May 26, 2025
  * 
  * @brief Contains definitions for functions too large to fit in the header.
  * 
@@ -18,7 +18,7 @@
 Arguments::Arguments() {
     this->is_silent = false;
 
-    this->op_mode = MODE_UNDEFINED;
+    this->op_mode = MODE_VERIFY;
 
     this->rom_dir    = "./roms/";
     this->data_dir   = "./data/";

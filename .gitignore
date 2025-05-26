@@ -1,3 +1,9 @@
+# Build artifacts
 build/
-roms/
+
+# Program functionality files
 data/
+rom/
+roms/
+patch/
+patches/
