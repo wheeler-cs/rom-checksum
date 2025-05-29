@@ -11,16 +11,15 @@ also need to be obtained and implemented into your workflow.
 ## Compiling
 Once the environment is set up, the program can be compiled as follows:
 
-`> git clone https://github.com/wheeler-cs/rom-checksum`
+```
+> git clone https://github.com/wheeler-cs/rom-checksum
+> cd rom-checksum
+> mkdir build
+> make all
+```
 
-`> cd rom-checksum`
-
-`> mkdir build`
-
-`> make all`
-
-If you desire multithreading, `make all-mt` can be issued instead. This will handle compiling all multithread-enabled
-files.
+Some operations in the program support multithreading. To compile with multithreading support enabled, the final make
+target can be replaced with `make all-mt`.
 
 ## Usage
 The executable "./build/rom-check" will be generated. The `-h` option can be used to get a list of parameters that can

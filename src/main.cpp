@@ -8,8 +8,8 @@
  * 
 */
 
-
 #include "arguments.hpp"
+#include "patch.hpp"
 #include "verify.hpp"
 
 
@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
                 do_verification(&args);
                 break;
             case MODE_PATCH:
+                do_patch(&args);
                 break;
         }
     }

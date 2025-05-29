@@ -44,6 +44,7 @@ public:
     /** Returns flag that indicates silent operation */
     bool         get_is_silent()  { return this->is_silent;  }
 
+    /** Returns the desired mode of operation */
     unsigned int get_op_mode()    { return this->op_mode;    }
 
     /** Returns the target ROM directory */
