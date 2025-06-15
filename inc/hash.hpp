@@ -32,10 +32,28 @@ using namespace CryptoPP;
 #include <fstream>
 
 
-void generate_file_info (std::string f_name, std::string &md5, std::string &sha1, unsigned long long &size);
-void generate_md5 (std::string f_name, std::string *md5);
-void generate_sha1 (std::string f_name, std::string *sha1);
-void calculate_file_size (std::string f_name, unsigned long long *f_size);
+void generate_file_info(std::string, std::string &, std::string &, unsigned long long &);
+
+
+/** @brief Calculates the CRC32 hash for a file.
+ * 
+ * This function is capable of hashing either part of or the entirety of the target file.
+ * 
+ * @param f_name Path to the file to be hashed by the function.
+ * @param byte_limit Number of bytes from the file that should be used to generate the file.
+ * 
+ * @note A value of 0 for `byte_limit` will use the entire file as input.
+ * 
+ * @returns The CRC32 hash of bytes from the target file.
+ * 
+ */
+word32 generate_crc32(const std::string &, size_t);
+
+
+void generate_md5(std::string, std::string *);
+void generate_md5(std::string, std::string *, size_t);
+void generate_sha1(std::string, std::string *);
+void calculate_file_size(std::string, unsigned long long *);
 
 
 #endif

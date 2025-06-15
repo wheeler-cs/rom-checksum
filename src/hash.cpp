@@ -5,6 +5,9 @@
  * @brief File contains a single-threaded and multi-threaded definition for generate_file_info and support functions for
  * the multi-threaded version. MULTITHREAD_ENABLE decides which of these functions are used.
  * 
+ * @note I have no idea why pointers to strings are being passed into the generation functions, and I'm in the process
+ * of fixing that...
+ * 
  * @see hash.hpp
  * 
  */
@@ -46,6 +49,31 @@ void generate_file_info (std::string f_name, std::string &md5, std::string &sha1
 #endif
 
 
+word32 generate_crc32(const std::string &f_name, size_t byte_limit)
+{
+    // Setup pipeline
+    CRC32 hash;
+    HashFilter h_filter(hash, NULL);
+    FileSource source(f_name.c_str(), false, NULL);
+
+    // Calculate hash
+    source.Attach(new Redirector(h_filter));
+    if(byte_limit == 0)
+    {
+        source.PumpAll();
+    }
+    else
+    {
+        source.Pump(byte_limit);
+    }
+
+    // Convert hash to 32-bit int
+    word32 digest;
+    hash.Final(reinterpret_cast<byte *>(&digest));
+    return digest;
+}
+
+
 void generate_md5 (std::string f_name, std::string *md5) {
     *md5 = "";
 
@@ -58,6 +86,27 @@ void generate_md5 (std::string f_name, std::string *md5) {
     // Ensure hash is all lowercase
     for (unsigned int i = 0; i < md5->size(); i++) {
         (*md5)[i] = (char) tolower ((*md5)[i]);
+    }
+}
+
+
+void generate_md5(std::string f_name, std::string *md5, size_t f_size)
+{
+    *md5 = "";
+
+    Weak1::MD5 hash;
+    
+    HashFilter h_filter(hash, new HexEncoder(new StringSink(*md5)));
+
+    FileSource source(f_name.c_str(), false /*pumpAll*/, nullptr);
+    source.Attach(new Redirector(h_filter));
+
+    source.Pump(f_size); // Read and process only up to max_bytes
+    h_filter.MessageEnd();  // Finalize the digest
+
+    // Convert result to lowercase
+    for (char& c : *md5) {
+        c = static_cast<char>(tolower(c));
     }
 }
 

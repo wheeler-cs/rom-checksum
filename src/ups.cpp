@@ -9,6 +9,8 @@
 
 #include "ups.hpp"
 
+#include "hash.hpp"
+
 #include <iostream>
 
 
@@ -40,9 +42,17 @@ bool UPS::validate_patch(std::string f_name)
             ups_read.read((char *)temp_checksum, 4);
             this->input_crc = *(word32 *)temp_checksum;
 
-            // TODO: Hash the patch file
+            // Hash patch file for sanity
+            size_t patch_length {0};
+            word32 patch_digest;
+            ups_read.seekg(0, ups_read.end);
+            patch_length = ((size_t)ups_read.tellg()) - 4;
+            patch_digest = generate_crc32(f_name, patch_length);
 
-            validation = true;
+            if(patch_digest == this->patch_crc)
+            {
+                validation = true;
+            }
         }
     }
 
